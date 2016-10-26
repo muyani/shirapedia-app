@@ -3,6 +3,7 @@
 import urllib
 import json
 import os
+import wikipedia
 
 from flask import Flask
 from flask import request
@@ -28,15 +29,15 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    if req.get("result").get("action") != "shipping.cost":
+    if req.get("result").get("action") != "wiki-page":
         return {}
     result = req.get("result")
     parameters = result.get("parameters")
-    zone = parameters.get("shipping-zone")
+    wikipediatitle = parameters.get("wiki-page")
 
-    cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500}
+   
 
-    speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
+    speech = wikipedia.summary(wikipediatitle, sentences=4)
 
     print("Response:")
     print(speech)
@@ -46,7 +47,7 @@ def makeWebhookResult(req):
         "displayText": speech,
         #"data": {},
         # "contextOut": [],
-        "source": "apiai-onlinestore-shipping"
+        "source": "shira-online wikipedia agent"
     }
 
 
@@ -55,4 +56,4 @@ if __name__ == '__main__':
 
     print "Starting app on port %d" % port
 
-    app.run(debug=True, port=port, host='0.0.0.0')
+app.run(debug=True, port=port, host='0.0.0.0')
