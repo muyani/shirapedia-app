@@ -2,6 +2,6 @@
   "name": "shirapedia-app wiki",
   "description": "wikipedia agent demo",
   "repository": "https://github.com/muyani/shirapedia-app",
-  "logo": "",
+ 
   "keywords": ["shirapedia", "natural language"]
 }
